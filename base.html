@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RUNNER - Errand Service{% endblock %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>RUNNER</h1>
+        <p>South African Errand Service</p>
+        <nav>
+            {% if session.get('user') %}
+                <a href="/dashboard">Dashboard</a>
+                <a href="/ledger">Ledger</a>
+                <span>{{ session.get('user') }}</span>
+                <a href="/logout">Logout</a>
+            {% else %}
+                <a href="/">Home</a>
+                <a href="/request">Request Errand</a>
+                <a href="/status">Check Status</a>
+                <a href="/login">Login</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alerts">
+                    {% for message in messages %}
+                        <div class="alert">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 RUNNER. All rights reserved.</p>
+        <p>
+            <a href="/terms">Terms & Conditions</a> |
+            <a href="/privacy">Privacy Policy</a> |
+            <a href="/refund">Refund Policy</a>
+        </p>
+    </footer>
+</body>
+</html>

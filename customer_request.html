@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Request an Errand - RUNNER{% endblock %}
+
+{% block content %}
+<h2>Request an Errand</h2>
+<p>Tell us what you need, and we'll send a runner.</p>
+
+<form method="POST">
+    <fieldset>
+        <legend>Your Details</legend>
+        <label>
+            Name:<br>
+            <input type="text" name="customer_name" required>
+        </label><br><br>
+        
+        <label>
+            Phone Number:<br>
+            <input type="tel" name="phone" required>
+        </label><br><br>
+        
+        <label>
+            Location / Address:<br>
+            <textarea name="location" rows="2" required></textarea>
+        </label><br><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Errand Details</legend>
+        <label>
+            What do you need done?<br>
+            <textarea name="errand_details" rows="4" required></textarea>
+        </label><br><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Payment Method</legend>
+        <label>
+            How will you pay?<br>
+            <select name="payment_method" required>
+                <option value="">-- Select --</option>
+                <option value="Cash">Cash (hand-to-hand)</option>
+                <option value="EFT">EFT (bank transfer)</option>
+                <option value="PayShap">PayShap</option>
+                <option value="QR Code">QR Code</option>
+            </select>
+        </label><br><br>
+    </fieldset>
+
+    <p><strong>Note:</strong> Payment happens OFFLINE (not on this website). You will be given the amount and runner details by phone.</p>
+
+    <button type="submit" class="btn-primary">Submit Errand Request</button>
+</form>
+{% endblock %}

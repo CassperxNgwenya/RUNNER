@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - RUNNER{% endblock %}
+
+{% block content %}
+<h2>Admin / Dispatcher Dashboard</h2>
+<p>Manage jobs, assign runners, and confirm payments.</p>
+
+<h3>Total Jobs: {{ jobs|length }}</h3>
+
+{% if jobs %}
+    {% for job in jobs %}
+        <div class="job-card">
+            <h4>Job ID: {{ job.job_id }} | Status: <strong>{{ job.status }}</strong></h4>
+            <p>
+                <strong>Customer:</strong> {{ job.customer_name }} ({{ job.phone }})<br>
+                <strong>Location:</strong> {{ job.location }}<br>
+                <strong>Details:</strong> {{ job.errand_details }}<br>
+                <strong>Payment Method:</strong> {{ job.payment_method }}<br>
+                <strong>Created:</strong> {{ job.created_date }}<br>
+            </p>
+
+            <form method="POST">
+                <input type="hidden" name="job_id" value="{{ job.job_id }}">
+
+                <!-- ASSIGN RUNNER -->
+                <fieldset>
+                    <legend>Assign Runner</legend>
+                    <input type="text" name="runner" placeholder="Runner name" value="{{ job.runner }}">
+                    <button type="submit" name="action" value="assign_runner" class="btn">Assign</button>
+                </fieldset>
+
+                <!-- SET PRICE -->
+                <fieldset>
+                    <legend>Set Price</legend>
+                    <label>
+                        Amount (R):<br>
+                        <input type="number" name="price" step="0.01" min="0" placeholder="0.00" value="{{ job.price or '' }}">
+                    </label>
+                    <button type="submit" name="action" value="set_price" class="btn">Set Price</button>
+                </fieldset>
+
+                <!-- CONFIRM PAYMENT -->
+                <fieldset>
+                    <legend>Payment Status</legend>
+                    <p>Paid: {% if job.paid %}✓ YES{% else %}✗ NO{% endif %}</p>
+                    {% if not job.paid %}
+                        <button type="submit" name="action" value="confirm_payment" class="btn">Confirm Payment Received</button>
+                    {% endif %}
+                </fieldset>
+
+                <!-- MARK COMPLETED -->
+                <fieldset>
+                    <legend>Job Completion</legend>
+                    <p>Completed: {% if job.completed %}✓ YES{% else %}✗ NO{% endif %}</p>
+                    {% if job.paid and not job.completed %}
+                        <button type="submit" name="action" value="mark_completed" class="btn-primary">Mark as Completed</button>
+                    {% endif %}
+                </fieldset>
+            </form>
+
+            <hr>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No jobs yet.</p>
+{% endif %}
+
+<p><a href="/dashboard">Refresh</a> to see new jobs.</p>
+{% endblock %}

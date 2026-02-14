@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Receipt - RUNNER{% endblock %}
+
+{% block content %}
+<h2>Digital Receipt</h2>
+
+<div class="receipt">
+    <p>
+        <strong>RUNNER Receipt</strong><br>
+        Date: {{ job.completed_date }}<br>
+        Job ID: {{ job.job_id }}
+    </p>
+
+    <hr>
+
+    <p>
+        <strong>Customer:</strong> {{ job.customer_name }}<br>
+        <strong>Phone:</strong> {{ job.phone }}<br>
+        <strong>Location:</strong> {{ job.location }}
+    </p>
+
+    <hr>
+
+    <p>
+        <strong>Errand Details:</strong><br>
+        {{ job.errand_details }}
+    </p>
+
+    <hr>
+
+    <p>
+        <strong>Runner:</strong> {{ job.runner }}<br>
+        <strong>Amount:</strong> R{{ job.price }}<br>
+        <strong>Payment Method:</strong> {{ job.payment_method }}<br>
+        <strong>Status:</strong> {{ job.status }}
+    </p>
+
+    <hr>
+
+    <p>
+        This is a digital record of your transaction.
+        <a href="javascript:window.print()">Print this receipt</a> for your records.
+    </p>
+</div>
+
+<p><a href="/status" class="btn">Back to Status Check</a></p>
+{% endblock %}

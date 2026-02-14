@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Job Status - RUNNER{% endblock %}
+
+{% block content %}
+<h2>Check Your Job Status</h2>
+
+<form method="POST">
+    <label>
+        Enter your Job ID:<br>
+        <input type="text" name="job_id" placeholder="e.g., AB12CD34" required>
+    </label><br><br>
+    <button type="submit" class="btn-primary">Check Status</button>
+</form>
+
+{% if job %}
+    <div class="status-card">
+        <h3>Job ID: {{ job.job_id }}</h3>
+        <p><strong>Status:</strong> {{ job.status }}</p>
+        <p><strong>Customer:</strong> {{ job.customer_name }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p><strong>Details:</strong> {{ job.errand_details }}</p>
+        <p><strong>Runner:</strong> {{ job.runner or 'Not assigned yet' }}</p>
+        <p><strong>Price:</strong> {% if job.price %}R{{ job.price }}{% else %}Not set yet{% endif %}</p>
+        <p><strong>Payment Method:</strong> {{ job.payment_method }}</p>
+        <p><strong>Paid:</strong> {% if job.paid %}✓ Yes{% else %}✗ No{% endif %}</p>
+        <p><strong>Completed:</strong> {% if job.completed %}✓ Yes{% else %}✗ No{% endif %}</p>
+        
+        {% if job.completed and job.paid %}
+            <p><a href="/receipt/{{ job.job_id }}" class="btn">View Digital Receipt</a></p>
+        {% endif %}
+    </div>
+{% endif %}
+
+<p>
+    <strong>Page not updating?</strong> Refresh your browser. We don't send automatic notifications.
+    Check back in 1-2 hours for updates.
+</p>
+{% endblock %}

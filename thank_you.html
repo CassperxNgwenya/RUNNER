@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Errand Submitted - RUNNER{% endblock %}
+
+{% block content %}
+<h2>Thank You!</h2>
+<p>Your errand request has been submitted.</p>
+
+<div class="highlight">
+    <h3>Your Job ID: <strong>{{ job_id }}</strong></h3>
+    <p>Save this number. You'll need it to check your job status.</p>
+</div>
+
+<h3>What happens next:</h3>
+<ol>
+    <li>Our team will review your request (within 1 hour)</li>
+    <li>A runner will be assigned</li>
+    <li>We will call/SMS you with the runner's name and the price</li>
+    <li>You pay offline (cash, EFT, PayShap, or QR)</li>
+    <li>The runner will start your errand</li>
+    <li>You can check status anytime using your Job ID</li>
+</ol>
+
+<p><a href="/status" class="btn">Check Your Status Now</a></p>
+<p><a href="/" class="btn">Back to Home</a></p>
+{% endblock %}
